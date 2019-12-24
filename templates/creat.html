@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<h3>Control Panel</h3>
+<hr>
+<p>
+    wellcome,<small>{{request.user.username}}</small>
+</p>
+<hr>
+<a class="btn btn-info" href="{% url 'article:addarticle' %}">Add Article</a>
+<hr>
+{% if articles %}
+    <!--Giriş yapan kişinin makalesi varsa tabloyu görüntüle-->
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Title</th>
+            <th scope="col">Author</th>
+            <th scope="col">Date</th>
+            <th scope="col">UpDate</th>
+            <th scope="col">Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+    {% for article in articles %}
+        <tr>
+            <th scope="row">{{article.id}}</th>
+            <td><a href="{% url 'article:detail' article.id %}">{{article.title}}</a></td>
+                <!--article'e tıklandığında article detayına gidecek bir link oluşturuldu-->
+                <!--usls.py(article)'de yolu eklememiz gerkiyor.url bizi views.py'deki detail fonksiyonuna yönlendirecek-->
+                <!--views.py'de ise detail fonksiyonunu tanımlayacağız-->
+                <!--detail.html sayfasında ise article görüntüleyeceğimiz layout oluşturacağız-->
+            <td>{{article.username}}</td>
+            <td>{{article.created_date}}</td>
+            <td><a href="{% url 'article:update' article.id %}" class="btn btn-info">UpDate</a></td>
+            <td><a href="{% url 'article:delete' article.id %}" class="btn btn-danger">Delete</a></td>
+        </tr>
+    {% endfor %}        
+        </tbody>
+    </table>
+{% else %}
+    <!--kullanıcının makalesi yoksa mesaj gönd-->
+    <div class='alert alert-danger'>You don't have any article yet</div>
+{% endif %}
+{% endblock body %}
