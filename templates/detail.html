@@ -31,6 +31,12 @@
       <p>{{article.content|safe}}</p>
       <!--safe komutu ile yazılarda html kodları görünmesi engelleniyor-->
       <hr>
+
+        {% comment %} Like section html dosyasini bu sayfaya dahil ettik {% endcomment %}
+        <div class="mb-4" id="like-section"> {% include 'like_section.html' %}</div>
+
+
+
       <!-- Single Comment -->  
         <div class="card my-4">
           <h5 class="card-header">Comment</h5>

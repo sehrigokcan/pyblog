@@ -22,13 +22,14 @@ class Article(models.Model):
     # The name was then customized to 'verbose name = oluşturulma zamanı'.
     article_image= models.FileField(blank=True, null= True, verbose_name="Add foto")
 
+    likes = models.ManyToManyField("auth.User", related_name="post_likes", blank=True)  # likes adinda bir alan olusturduk
+    # begeni butonu icin  yeni bir alan olusturduk 
+    
     def __str__(self):
         return self.title
     # We have customized the name of an object added here. 
     # The object name as Article object (1) will appear as title (başlık).
     
-
-
     # Note: 1-We will save the created Article model to admin.py page.
     # 2-We will continue to customize the admin panel in admin.py.
 

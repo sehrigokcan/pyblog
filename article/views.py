@@ -4,6 +4,32 @@ from .forms import ArticleForm
 from django .contrib import messages
 from .models import Article
 from django.contrib.auth.decorators import login_required
+from django.template.loader import render_to_string
+from django.forms.models import model_to_dict
+from django.http import JsonResponse
+
+
+def like_post(request):  # Like isleminin yapilmasi icin fonksiyonumuz
+    article = get_object_or_404(Article, id=request.POST.get('id'))  # Posttan gelen kuallnici idsini ekle
+    is_liked = False  # Varsayilan olarak like islemi False
+
+    if article.likes.filter(id=request.user.id).exists():  # Eger likes alaninin icinde  bir kullanci idsi varsa 
+        article.likes.remove(request.user)  # bu kullanici idsini sil
+        is_liked = False  # Like islemini False yap
+    else:
+        article.likes.add(request.user)  # degilse kullaniciyi ekle 
+        is_liked = True  # like degisenini True yap
+
+    context = {
+        "article": article,
+        'is_liked': is_liked}  # icerik olarak da makale ve like islemimizi don
+
+    if request.is_ajax():  #
+        html = render_to_string('like_section.html', context, request=request)
+        return JsonResponse({'form': html})
+
+
+
 
 
 def articles(request):

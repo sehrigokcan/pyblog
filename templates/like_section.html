@@ -1,0 +1,23 @@
+{% comment %} Toplam Like sayisini yazdirdik {% endcomment %}
+{{ article.likes.count }} Like
+
+{% comment %} Login islemi yapilmissa kullanici like butonlarini gorebilir {% endcomment %}
+
+{% if request.user.is_authenticated %}
+{% csrf_token %}
+
+{% comment %} Eger like yapilmissa {% endcomment %}
+{% if is_liked %}
+{% comment %} Dislike butonu gosterilir {% endcomment %}
+<button type="submit" id="like" name="article_id" value="{{ article.id }}" class="btn btn-dislike btn-outline-danger">
+    {% comment %} Buttonun icine font awesome kullanarak ikon ekliyoruz {% endcomment %}
+    <i class="fa fa-thumbs-down"></i>
+</button>
+{% comment %} Eger like yapilmamissa {% endcomment %}
+{% else %}
+{% comment %} Like butonu gosterilir {% endcomment %}
+<button type="submit" id="like" name="article_id" value="{{ article.id }}" class="btn btn-like btn-outline-primary">
+    <i class="fa fa-thumbs-up"></i>
+</button>
+{% endif %}
+{% endif %}

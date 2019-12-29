@@ -13,4 +13,7 @@ urlpatterns = [
     path('articles/delete/<int:id>', views.deleteArticle, name= 'delete'),
     path('articles/', views.articles, name= 'articles'),
     path('articles/comment/<int:id>', views.addComment, name= 'comment'),
+    path('like/', views.like_post, name="like_article"),
+    # like_postu calistiran adi like_article olan bir url tanimladik
+
 ]
