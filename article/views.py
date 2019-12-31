@@ -1,14 +1,66 @@
-from django.shortcuts import render, redirect, get_object_or_404
-                                            # sayfa yoksa 404 gönderecek fonksiyon import ettik
-from .forms import ArticleForm
-from django .contrib import messages
-from .models import Article
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.http import JsonResponse
+from django.shortcuts import render, HttpResponse, redirect, get_object_or_404, reverse, HttpResponseRedirect
 from django.template.loader import render_to_string
 from django.forms.models import model_to_dict
-from django.http import JsonResponse
+
+from .forms import ArticleForm
+from .models import Article, Comment
+from friendship.models import Follow
 
 
+@ login_required(login_url="user:login")
+def authors(request):
+    users = User.objects.all()
+    user_list = []
+
+
+    for user in users:
+        myUser = model_to_dict(user).copy()
+
+        user_articles = Article.objects.filter(author=user)
+        user_followers = Follow.objects.followers(user)
+        user_followings = Follow.objects.following(user)
+        is_following = Follow.objects.follows(request.user, user)
+
+        print("is following___________")
+        print(is_following)
+
+        myUser["articles"] = user_articles
+        myUser["followers"] = user_followers
+        myUser["followings"] = user_followings
+        myUser["is_following"] = is_following
+        user_list.append(myUser)
+
+    context = {
+        "users": user_list,
+    }
+    return render(request, "authors.html", context)
+
+
+@ login_required(login_url="user:login")
+def followAuthor(request):
+    recipient = User.objects.get(id=request.POST.get("id"))
+    is_following = Follow.objects.follows(request.user, recipient)
+
+    if (is_following):
+        Follow.objects.remove_follower(request.user, recipient)
+    else:
+        Follow.objects.add_follower(request.user, recipient)
+
+    context = {
+        "user": recipient,
+        "is_following": is_following
+        }  # icerik olarak da makale ve like islemimizi don
+
+    if request.is_ajax():  #
+        html = render_to_string('articles.html', context, request=request)
+        return JsonResponse({'form': html})
+
+
+@ login_required(login_url="user:login")
 def like_post(request):  # Like isleminin yapilmasi icin fonksiyonumuz
     article = get_object_or_404(Article, id=request.POST.get('id'))  # Posttan gelen kuallnici idsini ekle
     is_liked = False  # Varsayilan olarak like islemi False

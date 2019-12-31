@@ -20,7 +20,12 @@
 					<li class="nav-item pl-3">
 						<!--objeler arası boşluk bırakıyoruz(1-5 arası değer alır)-->
 						<a href="{% url 'article:articles' %}" class="nav-link text-white">Articles</a>
-					</li>					
+					</li>		
+
+					<li class="nav-item pl-3">
+                	<a class="nav-link text-white" href="{% url 'article:authors' %}">Yazarlar</a>
+            		</li>
+			
 					{% if request.user.is_authenticated %}					
 					<li class="nav-item pl-3">
 						<!--objeler arası boşluk bırakıyoruz(1-5 arası değer alır)-->
