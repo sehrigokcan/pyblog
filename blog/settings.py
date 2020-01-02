@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'django_cleanup.apps.CleanupConfig',
     'friendship',
+    'django_social_share',
 ]
 
 MIDDLEWARE = [

@@ -5,10 +5,15 @@ from django.http import JsonResponse
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404, reverse, HttpResponseRedirect
 from django.template.loader import render_to_string
 from django.forms.models import model_to_dict
+from django.db.models import Max
+
+import random
+
 
 from .forms import ArticleForm
 from .models import Article, Comment
 from friendship.models import Follow
+
 
 
 @ login_required(login_url="user:login")
@@ -24,9 +29,6 @@ def authors(request):
         user_followers = Follow.objects.followers(user)
         user_followings = Follow.objects.following(user)
         is_following = Follow.objects.follows(request.user, user)
-
-        print("is following___________")
-        print(is_following)
 
         myUser["articles"] = user_articles
         myUser["followers"] = user_followers
@@ -99,9 +101,28 @@ def articles(request):
     return render(request, "articles.html", {"articles":articles})
 
 def index(request):
-    context = {
-               
-    }
+    articles=Article.objects.all()
+
+    max_like_count = articles.aggregate(Max('likes'))["likes__max"]
+    most_liked_article = Article.objects.filter(likes = max_like_count).first()
+    
+    print("!!!!!!!!LIKES!!!!!!!!!!")
+    print(most_liked_article)
+   
+    # for i in likes:
+    #     like=likes[i]
+    # print(like)
+    # liked= Article.objects.filter(author_id=like)
+    # # liked=articles.objects.filter(user_id=like)
+    # print(liked)
+    
+    
+
+    
+    if articles:
+        articles=random.choices(articles,k=6)
+    
+    context={"articles":articles, "most_liked": most_liked_article}
     return render(request, 'index.html', context)
     
 
@@ -168,3 +189,20 @@ def deleteArticle(request,id):
 def addComment(request,id):
     return redirect('article:detail' ,{"id":id})
     
+
+
+def profile(request):
+
+    return render(request,"profile.html")
+
+
+def reading(request,id):
+    
+    reading=["django","python","computer","tecnology","data","web"]
+    print(reading[id])
+  
+    articles=Article.objects.filter(title__contains=reading[id])
+    print(articles)
+
+    return render(request,"reading.html", {"articles":articles})
+

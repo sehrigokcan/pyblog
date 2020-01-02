@@ -40,6 +40,10 @@
 					{% if request.user.is_authenticated %}
 					<li class="nav-item pl-3">
 						<!--objeler arası boşluk bırakıyoruz(1-5 arası değer alır)-->
+						<a href="{% url 'article:profile' %}" class="nav-link text-white">My Profile</a>
+					</li>
+					<li class="nav-item pl-3">
+						<!--objeler arası boşluk bırakıyoruz(1-5 arası değer alır)-->
 						<a href="{% url 'user:logout' %}" class="nav-link text-white">Logout</a>
 					</li>
 					
