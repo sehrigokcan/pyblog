@@ -1,5 +1,47 @@
 from django import forms
 # formlarımızı djangoda hazır bir model olan formdan türeteceğiz
+from .models import Profile
+
+# formlarımızı djangoda hazır bir model olan formdan türeteceğiz
+
+class ProfileForm(forms.ModelForm):
+    email=forms.EmailField(widget=forms.EmailInput())
+    confirm_email=forms.EmailField(widget=forms.EmailInput())
+    biografi= forms.Textarea()
+
+    class Meta:
+        model = Profile
+        fields = [
+            'image',
+            'first_name',
+            'last_name',
+            'role',
+            'location',            
+            'birthdate',
+            'education',
+            'language',
+            'profession',
+            'phone',
+            'email',
+            'biography',
+        ]
+
+    def clean(self):
+        cleaned_data = super(ProfileForm, self).clean()
+        email = cleaned_data.get("email")
+        confirm_email = cleaned_data.get("confirm_email")
+        bio = cleaned_data.get("biography")
+
+        if email != confirm_email:
+            raise forms.ValidationError(
+                "Emails must match!"
+            )
+
+        if len(bio) < 10:
+            raise forms.ValidationError(
+                "Biography must be 10 characters or longer!"
+            )
+
 
 class RegisterForm(forms.Form):
     username = forms.CharField(max_length= 50, label ='User')

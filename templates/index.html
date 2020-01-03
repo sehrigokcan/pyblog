@@ -19,7 +19,7 @@
                         <img class="carousel-image" src="/media/{{ml_article.article_image}}"  alt="{{ml_article.title}}">
                         <div class="carousel-caption">
                             <h2><strong>{{ml_article.title}}</strong></h2>
-                            <h5>{{ml_article.content|truncatewords_html:20|safe}}</h5>
+                            <p>{{ml_article.content|truncatewords_html:10|safe}}</p>
                         </div>
                     </a>
                 </div>
@@ -40,7 +40,7 @@
             <div class="col-lg-8 col-sm-12">
                 {% if articles %}
                     {% for article in latest_articles %}
-                        <div class="card shadow mb-4 overflow-hidden" style="height: 300px">
+                        <div class="card shadow mb-4 overflow-hidden" style="min-height: 300px">
                             <div class="row no-gutters h-100">
                                 <div class="col-md-4">
                                     <div class="d-flex h-100 align-items-center card-img-wrapper">

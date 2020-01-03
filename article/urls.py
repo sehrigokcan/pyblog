@@ -22,7 +22,6 @@ urlpatterns = [
     path('like/', views.like_post, name="like_article"),
 
     path('authors/', views.authors, name="authors"),
-    path('my-profile/', views.profile, name='profile'),
 
     path('follow/', views.followAuthor, name="follow_author"),
 ]

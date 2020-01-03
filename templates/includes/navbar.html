@@ -1,4 +1,4 @@
-<nav class="navbar shadow navbar-expand-lg navbar-dark sticky-top">
+<nav class="navbar shadow navbar-expand-lg navbar-light sticky-top">
     <!--bar rengi koyu     responsive bar   yazılar beyaz-->
     <div class="container py-2">
         <!--container ile objeleri biraz daha ortaya aldık, py-2 ile barı genişlettik(1-5 arası değer alıyor)-->
@@ -39,9 +39,9 @@
             <ul class="navbar-nav ml-auto">
                 <!--margin-left sola dayalı sıralar(ml-margin right)-->
                 {% if request.user.is_authenticated %}
-                    <li class="nav-item {% if request.resolver_match.url_name == 'my-profile' %}active{% endif %}">
+                    <li class="nav-item {% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
                         <!--objeler arası boşluk bırakıyoruz(1-5 arası değer alır)-->
-                        <a href="{% url 'article:profile' %}" class="nav-link">My Profile</a>
+                        <a href="{% url 'user:profile' %}" class="nav-link">My Profile</a>
                     </li>
                     <li class="nav-item">
                         <!--objeler arası boşluk bırakıyoruz(1-5 arası değer alır)-->
@@ -49,11 +49,11 @@
                     </li>
 
                 {% else %}
-                    <li class="nav-item {% if request.resolver_match.url_name == 'user/register' %}active{% endif %}">
+                    <li class="nav-item {% if request.resolver_match.url_name == 'register' %}active{% endif %}">
                         <!--objeler arası boşluk bırakıyoruz(1-5 arası değer alır)-->
                         <a href="{% url 'user:register' %}" class="nav-link">Register</a>
                     </li>
-                    <li class="nav-item {% if request.resolver_match.url_name == 'user/login' %}active{% endif %}">
+                    <li class="nav-item {% if request.resolver_match.url_name == 'login' %}active{% endif %}">
                         <!--objeler arası boşluk bırakıyoruz(1-5 arası değer alır)-->
                         <a href="{% url 'user:login' %}" class="nav-link">Login</a>
                     </li>

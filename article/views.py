@@ -9,6 +9,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from friendship.models import Follow
+from user.models import Profile
 
 from .forms import ArticleForm
 from .models import Article
@@ -18,6 +19,7 @@ from .models import Article
 def authors(request):
     users = User.objects.all()
     user_list = []
+    profile = request.user.profile
 
     for user in users:
         myUser = model_to_dict(user).copy()
@@ -26,14 +28,16 @@ def authors(request):
         user_followers = Follow.objects.followers(user)
         user_followings = Follow.objects.following(user)
         is_following = Follow.objects.follows(request.user, user)
+        user_profile = Profile.objects.get(user=user)
 
         myUser["articles"] = user_articles
         myUser["followers"] = user_followers
         myUser["followings"] = user_followings
         myUser["is_following"] = is_following
+        myUser["profile"] = user_profile
         user_list.append(myUser)
 
-    context = {"users": user_list}
+    context = {"users": user_list, "profile":profile}
     return render(request, "authors.html", context)
 
 
@@ -76,6 +80,7 @@ def like_post(request):  # Like isleminin yapilmasi icin fonksiyonumuz
     if request.is_ajax():  #
         html = render_to_string('like_section.html', context, request=request)
         return JsonResponse({'form': html})
+    
 
 
 def articles(request):
@@ -181,10 +186,6 @@ def deleteArticle(request, id):
 
 def addComment(request, id):
     return redirect('article:detail', {"id": id})
-
-
-def profile(request):
-    return render(request, "profile.html")
 
 
 def reading(request, id):

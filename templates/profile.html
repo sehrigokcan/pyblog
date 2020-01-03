@@ -3,141 +3,77 @@
 
 {% block body %}
 <div class="container">
-    <div class="row ">
-        <!-- --------------- -->
-        <div class="col-lg-3 bg-dark p-5">
-            <div class="p-3 mb-3 bg-white">
-                <img src="{% static 'img/images.png' %}" class="card-img " alt="" />
+   {% if not profile.user %}
+      <div class="alert alert-danger">
+         <p>You have an empty profile.</p>
+         <a href="{% url 'user:edit_profile' %}">Add some info</a>
+      </div>
+   {% else %}
+   <div class="row">
+      <!-- --------------- -->
+      <div class="col-md-3">
+         <div class="card">
+            <div class="p-3 mb-3">
+               {% if profile.image %}
+                  <img src="/media/{{profile.image}}" class="img-fluid rounded-circle" alt="" />               
+               {% else %}
+                  <img src=" {% static 'img/images.png' %}" class="img-fluid rounded-circle" alt="" />
+               {% endif %}
             </div>
-            <h5 class="card-title text-center">Naim Ucar</h5>
-            <div class="list-group list-group-flush">
-                <a class="list-group-item bg-transparent" href="{% url 'index' %}">Home</a>
-                {% comment %} <a href="{% url 'password_change' %}">Change Password</a> {% endcomment %}
-                <a class="list-group-item bg-transparent" href="">Profile Update</a>
-                <a class="list-group-item bg-transparent" href="{% url 'article:creat' %}">My Articles</a>
-            </div>
-        </div>
-        <!-- --------- -->
-        <div class="col-lg-9">
-            <div class="card mb-3">
-                <div class="card-header">
-                    <h3 class="text-center">PROFILE</h3>
-                </div>
-                <div class="card-body">
-                    <!-- ----------- -->
-                    <div class="row">
-                        <div class="col-3">
-                            <div class="card-body ">
-                                <div class="card ">
-                                    <div class="alert text-center" role="alert">
-                                        <form class="form" action="">
-                                            <button class="btn btn-outline-info btn-sm">Add Photo</button>
-                                        </form>
-                                    </div>
-                                    <img src="{% static 'img/wat.jpeg' %}" class="card-img-top rounded-circle" alt="">
-                                    <div class="card-body">
-                                        <h5 class="card-title text-center">Naim Ucar</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-9">
-                            <!--      kisisel bilgilerr           -->
-                            <h4 class="card-title text-center">Personel Information</h4>
-                            <form>
-                                <div class="form-group row">
-                                    <label for="name" class="col-sm-2 col-form-label">Name</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control border-primary" id="name" placeholder="Name">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label for="lname" class="col-sm-2 col-form-label">Lastname</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control border-primary" id="lname" placeholder="LastName">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label for="birdday" class="col-sm-2 col-form-label">Birthday</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control border-primary" id="birdday" placeholder="BirthDay">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label for="telephone" class="col-sm-2 col-form-label">Telephone</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control border-primary" id="telephone" placeholder="Telephone">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-                                    <div class="col-sm-10">
-                                        <input type="email" class="form-control border-primary" id="inputEmail3" placeholder="Email">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label for="adres" class="col-sm-2 col-form-label">Adres</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control border-primary" id="adrse" placeholder="Adress" value="">
-                                    </div>
-                                </div>
-
-                                <div class="form-group text-right ">
-                                    <button class="btn btn-outline-primary">Save</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <!-- ---------- -->
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="text-center">Other Information</h4>
-                </div>
-               <div class="card-body">
-                    <form>
-                        <div class="form-group row">
-                            <label for="na" class="col-sm-2 col-form-label">University</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control border-primary" id="na" placeholder="University">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="ln" class="col-sm-2 col-form-label">Job</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control  border-primary" id="ln" placeholder="Job">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="tel" class="col-sm-2 col-form-label">Langague</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control border-primary" id="tel" placeholder="Langague">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="in" class="col-sm-2 col-form-label">Company Name</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control border-primary" id="in" placeholder="CompanyName">
-                            </div>
-                        </div>
-
-                        <div class="form-group text-right">
-                            <button class="btn btn-outline-primary">Save</button>
-                        </div>
-                    </form>
+            <div class="card-body">
+               <h5 class="card-title text-center">{{profile.first_name|upper}} {{profile.last_name|upper}}</h5>
+               <div class="list-group list-group-flush">
+                     <a class="list-group-item bg-transparent" href="{% url 'user:edit_profile' %}">Profile Update</a>
+                     <a class="list-group-item bg-transparent" href="{% url 'article:creat' %}">My Articles</a>
                </div>
             </div>
-        </div>
-    </div>
+         </div>
+      </div>
+      <!-- --------- -->
+      <div class="col-md-9">
+         <div class="card">
+            <div class="card-header">
+               <h4 class="text-center">Profile Informations</h4>
+            </div>
+            <div class="card-body">
+               <table class="table table-bordered table-hover">
+                  <tbody>
+                     <tr>
+                        <th scope="row">Name</th><td>{{profile.first_name}}</td>
+                     </tr>
+                     <tr>
+                        <th scope="row">Surname</th><td>{{profile.last_name}}</td>
+                     </tr>
+                     <tr>                     
+                        <th scope="row">Location</th><td>{{profile.location}}</td>
+                     </tr>
+                     <tr>                     
+                        <th scope="row">Birthdate</th><td>{{profile.birthdate}}</td>
+                     </tr>
+                     <tr>                     
+                        <th scope="row">Education</th><td>{{profile.education}}</td>
+                     </tr>
+                     <tr>                     
+                        <th scope="row">Language</th><td>{{profile.language}}</td>
+                     </tr>
+                     <tr>                  
+                        <th scope="row">Profession</th><td>{{profile.profession}}</td>
+                     </tr>
+                     <tr>                     
+                        <th scope="row">Phone</th><td>{{profile.phone}}</td>
+                     </tr>
+                     <tr>
+                        <th scope="row">Email</th><td>{{profile.email}}</td>
+                     </tr>
+                     <tr>   
+                        <th scope="row">Biography</th><td>{{profile.biography}}</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+   </div>
+   {% endif %}
 </div>
-    <!-- -------------------- -->
 {% endblock body %}

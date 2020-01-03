@@ -1,5 +1,6 @@
 body {
   background-color: #dbdee0;
+  overflow-x: hidden;
 }
 
 #main {
@@ -11,12 +12,19 @@ body {
   margin-bottom: 1.5rem;
 }
 
-.navbar, .footer {
-  background-color: rgba(0, 0, 0, 0.77);
+.navbar,
+.footer {
+  backdrop-filter: blur(5px);
+}
+
+.navbar {
+  background-color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
 }
 
 .footer {
   height: 120px;
+  background-color: rgba(0, 2, 32, 0.85);
 }
 
 .footer i {
@@ -37,7 +45,12 @@ body {
   background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.6));
 }
 
+.carousel-item a {
+  color: inherit;
+}
+
 .carousel-image {
+  width: 100%;
   object-position: bottom;
 }
 
@@ -45,7 +58,8 @@ body {
   object-fit: cover;
 }
 
-.card-img-author, .reading-img {
+.card-img-author,
+.reading-img {
   height: 200px;
   object-fit: cover;
 }
@@ -56,7 +70,7 @@ pre {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-.card-text ~ pre {
+.card-text~pre {
   display: none;
 }
 

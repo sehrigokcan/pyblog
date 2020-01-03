@@ -44,6 +44,10 @@ INSTALLED_APPS = [
     'django_cleanup.apps.CleanupConfig',
     'friendship',
     'django_social_share',
+    # profile form
+    'phone_field',
+    'phonenumber_field',    
+    'languages',
 ]
 
 MIDDLEWARE = [

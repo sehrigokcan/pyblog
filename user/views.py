@@ -1,8 +1,37 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from .forms import RegisterForm, LoginForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
-from django .contrib import messages
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from .models import Profile
+from .forms import ProfileForm
+
+@login_required(login_url="user:login")
+def profile(request):
+    """Display User Profile"""
+    profile = request.user.profile
+    return render(request, 'profile.html', {
+        'profile': profile
+    })
+
+
+@ login_required(login_url="user:login")
+def edit_profile(request):
+    user = request.user
+    profile = get_object_or_404(Profile, user=user)
+    form = ProfileForm(request.POST or None, request.FILES or None, instance=profile)
+
+    if form.is_valid():
+        form.save()
+        messages.success(request, "Updated the Profile Successfully!")
+        return redirect('user:profile')
+
+    return render(request, 'edit_profile.html', {
+        'form': form,
+        'profile': profile
+    })
+
 
 
 def register(request):
@@ -25,7 +54,6 @@ def register(request):
         messages.info(request,'You have successfully registered.')
             # success-->yeşil bir bar içinde uyarı
             # warning-->kırmızı bir bar içinde uyarı
-
 
         return redirect('index') 
             # path('', views.index, name='index') urls.py(article) index'e redirect yaptık.

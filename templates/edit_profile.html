@@ -1,0 +1,44 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% load crispy_forms_tags %}
+{% block title %}Profile | {{ user }} {{ super }}{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+         <div class="card">
+            <div class="p-3 mb-3">
+               {% if profile.image %}
+                  <img src="/media/{{profile.image}}" class="img-fluid rounded-circle" alt="" />               
+               {% else %}
+                  <img src=" {% static 'img/images.png' %}" class="img-fluid rounded-circle" alt="" />
+               {% endif %}
+            </div>
+            <div class="card-body">
+               <h5 class="card-title text-center">{{profile.first_name|upper}} {{profile.last_name|upper}}</h5>
+               <div class="list-group list-group-flush">
+                     <a class="list-group-item bg-transparent" href="{% url 'user:edit_profile' %}">Profile Update</a>
+                     <a class="list-group-item bg-transparent" href="{% url 'article:creat' %}">My Articles</a>
+               </div>
+            </div>
+         </div>
+      </div>
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="text-center">Edit Profile</h4>
+                </div>
+                <div class="card-body">
+                    <form  method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{form.media}}
+                        {{form|crispy}}            
+                        <button type='submit' class='btn btn-danger'>Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}
