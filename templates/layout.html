@@ -5,59 +5,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap@4.3.1/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/font-awesome@4.7.0/css/font-awesome.min.css"/>
     <!-- Font awesome kullanmak icin css dosyasi ekliyoruz -->
-    <style>   
-    .btn-dislike, .btn-like {
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 50%;
-        line-height: 1;
-        height: 3rem;
-        width: 3rem;
-        margin-left: 1rem;
-    }
-
-    .fa {
-        font-size: 1.6em;
-    }
-
-    </style>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
     <title>Ybblog</title>
 </head>
 <body>
 {% include "includes/navbar.html" %}
-<div style="margin-top : 100px; margin-bottom:100px;" class="container">
-
+<main id="main" class="py-4">
     {% if messages %}
-
-    {% for message in messages %}
-    {% if message.tags == "info" %}
-    <div class="alert alert-danger">{{ message }}</div>
-    {% else %}
-    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-
-    {% endif %}
-
-
-    {% endfor %}
-
+        {% for message in messages %}
+            {% if message.tags == "info" %}
+                <div class="alert alert-danger">{{ message }}</div>
+            {% else %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endif %}
+        {% endfor %}
     {% endif %}
     {% block body %}
-
     {% endblock body %}
-
-</div>
-
+</main>
 {% include 'includes/footer.html' %}
-<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-<script src="{% static 'js/bootstrap.min.js'%}"></script>
-<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+
+<script src="https://unpkg.com/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://unpkg.com/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://unpkg.com/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
 

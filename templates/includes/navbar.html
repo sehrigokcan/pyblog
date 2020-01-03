@@ -1,67 +1,67 @@
-<nav class="navbar navbar-toggleable-md navbar-light bg-faded"  style="background-color:royalblue">
-				<!--bar rengi koyu     responsive bar   yazılar beyaz-->
-	<div class="container py-2">
-	<!--container ile objeleri biraz daha ortaya aldık, py-2 ile barı genişlettik(1-5 arası değer alıyor)-->
-		<a href="{% url 'index' %}" class="navbar-brand "  style="color:yellow">pycoders</a>
-		<!--şirket logosu için link ve etiket-->
-		
-		<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-									  <!--açılır kapanır menu, hangi objelere uygulanacak-->
-			<span class="navbar-toggler-icon"></span>
-		</button>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-										<!-- data-target olarak bu divi gösretiyoruz aynı ismi ile -->
-				<ul class="navbar-nav mr-auto">
-					<!--margin-left sola dayalı sıralar(ml-margin right)-->
-					<li class="nav-item pl-3">
-						<!--objeler arası boşluk bırakıyoruz(1-5 arası değer alır)-->
-						<a href="{% url 'article:about' %}" class="nav-link text-white">About</a>
-					</li>
-					<li class="nav-item pl-3">
-						<!--objeler arası boşluk bırakıyoruz(1-5 arası değer alır)-->
-						<a href="{% url 'article:articles' %}" class="nav-link text-white">Articles</a>
-					</li>		
+<nav class="navbar shadow navbar-expand-lg navbar-dark sticky-top">
+    <!--bar rengi koyu     responsive bar   yazılar beyaz-->
+    <div class="container py-2">
+        <!--container ile objeleri biraz daha ortaya aldık, py-2 ile barı genişlettik(1-5 arası değer alıyor)-->
+        <a href="{% url 'index' %}" class="navbar-brand">PYBlog</a>
+        <!--şirket logosu için link ve etiket-->
 
-					<li class="nav-item pl-3">
-                	<a class="nav-link text-white" href="{% url 'article:authors' %}">Yazarlar</a>
-            		</li>
-			
-					{% if request.user.is_authenticated %}					
-					<li class="nav-item pl-3">
-						<!--objeler arası boşluk bırakıyoruz(1-5 arası değer alır)-->
-						<a href="{% url 'article:creat' %}" class="nav-link text-white">Detail</a>
-					</li>																	
-					{% endif %}	
-									
-				</ul>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <!--açılır kapanır menu, hangi objelere uygulanacak-->
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNavbar">
+            <!-- data-target olarak bu divi gösretiyoruz aynı ismi ile -->
+            <ul class="navbar-nav mr-auto">
+                <!--margin-left sola dayalı sıralar(ml-margin right)-->
+                <li class="nav-item {% if request.resolver_match.url_name == 'about' %}active{% endif %}">
+                    <!--objeler arası boşluk bırakıyoruz(1-5 arası değer alır)-->
+                    <a href="{% url 'article:about' %}" class="nav-link">About</a>
+                </li>
+                <li class="nav-item {% if request.resolver_match.url_name == 'articles' %}active{% endif %}">
+                    <!--objeler arası boşluk bırakıyoruz(1-5 arası değer alır)-->
+                    <a href="{% url 'article:articles' %}" class="nav-link">Articles</a>
+                </li>
 
-				<ul class="navbar-nav ml-auto">
-					<!--margin-left sola dayalı sıralar(ml-margin right)-->
-					{% if request.user.is_authenticated %}
-					<li class="nav-item pl-3">
-						<!--objeler arası boşluk bırakıyoruz(1-5 arası değer alır)-->
-						<a href="{% url 'article:profile' %}" class="nav-link text-white">My Profile</a>
-					</li>
-					<li class="nav-item pl-3">
-						<!--objeler arası boşluk bırakıyoruz(1-5 arası değer alır)-->
-						<a href="{% url 'user:logout' %}" class="nav-link text-white">Logout</a>
-					</li>
-					
-																			
-					{% else %}
-					<li class="nav-item px-3">
-						<!--objeler arası boşluk bırakıyoruz(1-5 arası değer alır)-->
-						<a href="{% url 'user:register' %}" class="nav-link text-white">Register</a>
-					</li>
-					<li class="nav-item px-3">
-						<!--objeler arası boşluk bırakıyoruz(1-5 arası değer alır)-->
-						<a href="{% url 'user:login' %}" class="nav-link text-white">Login</a>
-					</li>												
-					{% endif %}										
-				</ul>				
-			</div>		
-	</div>
-</nav> 
+                <li class="nav-item {% if request.resolver_match.url_name == 'authors' %}active{% endif %}">
+                    <a href="{% url 'article:authors' %}" class="nav-link">Yazarlar</a>
+                </li>
+
+                {% if request.user.is_authenticated %}
+                    <li class="nav-item {% if request.resolver_match.url_name == 'creat' %}active{% endif %}">
+                        <!--objeler arası boşluk bırakıyoruz(1-5 arası değer alır)-->
+                        <a href="{% url 'article:creat' %}" class="nav-link">Detail</a>
+                    </li>
+                {% endif %}
+            </ul>
+
+            <ul class="navbar-nav ml-auto">
+                <!--margin-left sola dayalı sıralar(ml-margin right)-->
+                {% if request.user.is_authenticated %}
+                    <li class="nav-item {% if request.resolver_match.url_name == 'my-profile' %}active{% endif %}">
+                        <!--objeler arası boşluk bırakıyoruz(1-5 arası değer alır)-->
+                        <a href="{% url 'article:profile' %}" class="nav-link">My Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <!--objeler arası boşluk bırakıyoruz(1-5 arası değer alır)-->
+                        <a href="{% url 'user:logout' %}" class="nav-link">Logout</a>
+                    </li>
+
+                {% else %}
+                    <li class="nav-item {% if request.resolver_match.url_name == 'user/register' %}active{% endif %}">
+                        <!--objeler arası boşluk bırakıyoruz(1-5 arası değer alır)-->
+                        <a href="{% url 'user:register' %}" class="nav-link">Register</a>
+                    </li>
+                    <li class="nav-item {% if request.resolver_match.url_name == 'user/login' %}active{% endif %}">
+                        <!--objeler arası boşluk bırakıyoruz(1-5 arası değer alır)-->
+                        <a href="{% url 'user:login' %}" class="nav-link">Login</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
 
 <!--
 <nav class="navbar navbar-expand-lg navbar-light bg-light">

@@ -1,61 +1,67 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<h3>AUTHORS</h3>
 
-<div class="container">
-  <div class="row">
-    {% for user in users %}
-    {% if user.articles|length > 0 %}
-    <div class="col-lg-4 col-sm-6 col-xs-12">
-        <h1>{{ is_following }}</h1>
-        <div id="card" class="card">
-          <img src="https://uinames.com/api/photos/male/1.jpg" class="card-img-top" alt="{{ user.username }}" />
-          <div class="card-body p-4">
-            <h3 class="card-title">{{ user.username }}</h3>
-            <p>{{ user.followers|length }} Followers</p>
-            <p>{{ user.followings|length }} Followings</p>
-            
-            {% if request.user.is_authenticated and request.user.id != user.id %}
-            <div id="follow-section">
-              {% csrf_token %}
-              {% if user.is_following == True %}
-                <button type="submit" id="follow" name="follow_id" value="{{ user.id }}" class="btn btn-outline-danger">
-                  <i class="fa fa-check-circle"></i> Unfollow
-                </button>
-              {% else %}
-                <button type="submit" id="follow" name="follow_id" value="{{ user.id }}" class="btn btn-outline-success">
-                  <i class="fa fa-check-circle-o"></i> Follow
-                </button>
-              {% endif %}
-            </div>
-            {%else%}
-                <button class="btn btn-outline-primary">
-                  <i class="fa fa-user"></i> You
-                </button>
-            {% endif %}
-
-            <p class="mt-4">
-              <a class="btn btn-primary " data-toggle="collapse" href="#articles{{user.id}}" role="button" aria-expanded="false" aria-controls="articles">
-                <i class="fa fa-pencil-square-o"></i> Author's Articles
-              </a>
-            </p>
-            <div id="articles{{user.id}}" class="collapse">
-              <div class="list-group">
-              {% for article in user.articles %}
-                  <a class="list-group-item list-group-item-action" href="/articles/article/{{article.id}}">
-                    <strong>{{article.title}}</strong>  <span class="mx-2">|</span>  <span class="badge badge-primary">{{article.created_date|date:"M d, Y"}}</span>
-                  </a>
-              {% endfor %}
-              </div>
-            </div>
-          </div>
+    <div class="container">
+        <div class="text-center py-2">
+            <h1>Authors</h1>
+            <hr>
         </div>
-      </div>
- 
-    {% endif %}
-      
-    {% endfor %}
-  </div>
-</div>
+        <div class="row mb-4">
+            {% for user in users %}
+                {% if user.articles|length > 0 %}
+                    <div class="col-lg-4 col-sm-6 col-xs-12">
+                        <h1>{{ is_following }}</h1>
+                        <div id="card" class="card shadow">
+                            <img src="https://uinames.com/api/photos/male/1.jpg" class="card-img-top card-img-author"
+                                 alt="{{ user.username }}"/>
+                            <div class="card-body p-4">
+                                <h3 class="card-title">{{ user.username }}</h3>
+                                <div class="d-flex justify-content-between align-items-baseline">
+                                    <p><span class="badge badge-primary">{{ user.followers|length }}</span> Followers</p>
+                                    <p><span class="badge badge-success">{{ user.followings|length }}</span> Followings</p>
+                                    {% if request.user.is_authenticated and request.user.id != user.id %}
+                                        <div id="follow-section">
+                                            {% csrf_token %}
+                                            {% if user.is_following == True %}
+                                                <button type="submit" id="follow" name="follow_id" value="{{ user.id }}" class="btn btn-sm btn-outline-danger">
+                                                    <i class="fa fa-check-circle"></i> Unfollow
+                                                </button>
+                                            {% else %}
+                                                <button type="submit" id="follow" name="follow_id" value="{{ user.id }}" class="btn btn-sm btn-outline-success">
+                                                    <i class="fa fa-check-circle-o"></i> Follow
+                                                </button>
+                                            {% endif %}
+                                        </div>
+                                    {% else %}
+                                        <button class="btn btn-sm btn-outline-primary">
+                                            <i class="fa fa-user"></i> You
+                                        </button>
+                                    {% endif %}
+                                </div>
+
+                            </div>
+                            <div class="card-footer">
+                                <a class="btn btn-block btn-sm btn-primary " data-toggle="collapse" href="#articles{{ user.id }}"
+                                    role="button" aria-expanded="false" aria-controls="articles">
+                                    <i class="fa fa-pencil-square-o"></i> Author's Articles
+                                </a>
+                                <div id="articles{{ user.id }}" class="collapse mt-2">
+                                    <div class="list-group">
+                                        {% for article in user.articles %}
+                                            <a class="list-group-item list-group-item-action" href="/articles/article/{{ article.id }}">
+                                                <strong>{{ article.title }}</strong>
+                                                <span class="mx-2">|</span>
+                                                <span class="badge badge-primary">{{ article.created_date|date:"M d, Y" }}</span>
+                                            </a>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
 {% endblock body %}

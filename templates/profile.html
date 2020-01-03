@@ -2,44 +2,28 @@
 {% load static %}
 
 {% block body %}
-
-
-       <div class="row ">
-    <!-- =============================== -->
-      <!-- --------------- -->
-       <div class="col-2 bg-dark">
-           <br>
-        <div class="row ">
-            <div class="card w-50 mx-auto ">
-                <img src="{% static 'img/images.png' %}" class="card-img " alt="">
-                <h5 class="card-title text-center"> naim ucar</h5>
+<div class="container">
+    <div class="row ">
+        <!-- --------------- -->
+        <div class="col-lg-3 bg-dark p-5">
+            <div class="p-3 mb-3 bg-white">
+                <img src="{% static 'img/images.png' %}" class="card-img " alt="" />
             </div>
-         
-        </div><br>
-        <div class="row mx-4">
-            <a href="{% url 'index'%}">Home</a>
-        </div><br>
-        <div class="row mx-4">
-            {% comment %} <a href="{% url 'password_change' %}">Change Password</a> {% endcomment %}
-        </div><br>
-        <div class="row mx-4">
-            <a href="">Profile Update</a>
-        </div><br>
-        <div class="row mx-4">
-            <a href="{% url 'article:creat' %}">My Articles</a>
-        </div><br>
-        
-        
-
-       </div>
-       <!-- --------- -->
-         <div class="col-8 " >
-            <div class="card">
-               <div class="alert alert-info text-center" role="alert">
-                   <h3 class="">PROFILE</h3>
-               </div> 
-
-                <div class="container">
+            <h5 class="card-title text-center">Naim Ucar</h5>
+            <div class="list-group list-group-flush">
+                <a class="list-group-item bg-transparent" href="{% url 'index' %}">Home</a>
+                {% comment %} <a href="{% url 'password_change' %}">Change Password</a> {% endcomment %}
+                <a class="list-group-item bg-transparent" href="">Profile Update</a>
+                <a class="list-group-item bg-transparent" href="{% url 'article:creat' %}">My Articles</a>
+            </div>
+        </div>
+        <!-- --------- -->
+        <div class="col-lg-9">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h3 class="text-center">PROFILE</h3>
+                </div>
+                <div class="card-body">
                     <!-- ----------- -->
                     <div class="row">
                         <div class="col-3">
@@ -47,16 +31,13 @@
                                 <div class="card ">
                                     <div class="alert text-center" role="alert">
                                         <form class="form" action="">
-                                            <button class="btn btn-outline-info btn-sm"><sub>Add Photo</sub>  </button>
+                                            <button class="btn btn-outline-info btn-sm">Add Photo</button>
                                         </form>
-                                       
-                                    </div> 
-                                    <img src="{% static 'img/wat.jpeg' %}" class=" card-img-top rounded-circle" alt="">
-                            
+                                    </div>
+                                    <img src="{% static 'img/wat.jpeg' %}" class="card-img-top rounded-circle" alt="">
                                     <div class="card-body">
                                         <h5 class="card-title text-center">Naim Ucar</h5>
-                                        
-                                         </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -67,92 +48,96 @@
                                 <div class="form-group row">
                                     <label for="name" class="col-sm-2 col-form-label">Name</label>
                                     <div class="col-sm-10">
-                                      <input type="text" class="form-control border-primary" id="name" placeholder="Name">
+                                        <input type="text" class="form-control border-primary" id="name" placeholder="Name">
+                                    </div>
                                 </div>
-                                </div>
+
                                 <div class="form-group row">
                                     <label for="lname" class="col-sm-2 col-form-label">Lastname</label>
                                     <div class="col-sm-10">
-                                      <input type="text" class="form-control border-primary" id="lname" placeholder="LastName">
+                                        <input type="text" class="form-control border-primary" id="lname" placeholder="LastName">
+                                    </div>
                                 </div>
-                                </div>
+
                                 <div class="form-group row">
                                     <label for="birdday" class="col-sm-2 col-form-label">Birthday</label>
                                     <div class="col-sm-10">
-                                      <input type="text" class="form-control border-primary" id="birdday" placeholder="BirthDay">
+                                        <input type="text" class="form-control border-primary" id="birdday" placeholder="BirthDay">
+                                    </div>
                                 </div>
-                                </div>
+
                                 <div class="form-group row">
                                     <label for="telephone" class="col-sm-2 col-form-label">Telephone</label>
                                     <div class="col-sm-10">
-                                      <input type="text" class="form-control border-primary" id="telephone" placeholder="Telephone">
+                                        <input type="text" class="form-control border-primary" id="telephone" placeholder="Telephone">
                                     </div>
                                 </div>
+
                                 <div class="form-group row">
-                                  <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-                                  <div class="col-sm-10">
-                                    <input type="email" class="form-control border-primary" id="inputEmail3" placeholder="Email">
-                                  </div>
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                                    <div class="col-sm-10">
+                                        <input type="email" class="form-control border-primary" id="inputEmail3" placeholder="Email">
+                                    </div>
                                 </div>
+
                                 <div class="form-group row">
                                     <label for="adres" class="col-sm-2 col-form-label">Adres</label>
                                     <div class="col-sm-10">
-                                      <input type="text" class="form-control border-primary" id="adrse"  placeholder="Adress" value="">
+                                        <input type="text" class="form-control border-primary" id="adrse" placeholder="Adress" value="">
                                     </div>
                                 </div>
+
                                 <div class="form-group text-right ">
                                     <button class="btn btn-outline-primary">Save</button>
                                 </div>
-
                             </form>
-                                 
-
                         </div>
                     </div>
                     <!-- ---------- -->
                 </div>
-               
             </div>
-            <br>
-            <!-- diger bilgiler  -->
-            <h4 class="card-title text-center">Other Information</h4>
-            <hr class="bg-dark">
-            <form>
-                <div class="form-group row">
-                    <label for="na" class="col-sm-2 col-form-label">University</label>
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control border-primary" id="na" placeholder="University">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="text-center">Other Information</h4>
                 </div>
-                </div>
-                <div class="form-group row">
-                    <label for="ln" class="col-sm-2 col-form-label">Job</label>
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control  border-primary" id="ln" placeholder="Job">
-                </div>
-                </div>
-                <div class="form-group row">
-                    <label for="tel" class="col-sm-2 col-form-label">Langague</label>
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control border-primary" id="tel" placeholder="Langague">
-                    </div>
-                </div>
-                <div class="form-group row">
-                  <label for="in" class="col-sm-2 col-form-label">Company Name</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control border-primary" id="in" placeholder="CompanyName">
-                  </div>
-                </div>
-               
-                <div class="form-group text-right">
-                    <button class="btn btn-outline-primary">Save</button>
-                </div>
+               <div class="card-body">
+                    <form>
+                        <div class="form-group row">
+                            <label for="na" class="col-sm-2 col-form-label">University</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control border-primary" id="na" placeholder="University">
+                            </div>
+                        </div>
 
-            </form>
-         </div>
+                        <div class="form-group row">
+                            <label for="ln" class="col-sm-2 col-form-label">Job</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control  border-primary" id="ln" placeholder="Job">
+                            </div>
+                        </div>
 
+                        <div class="form-group row">
+                            <label for="tel" class="col-sm-2 col-form-label">Langague</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control border-primary" id="tel" placeholder="Langague">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="in" class="col-sm-2 col-form-label">Company Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control border-primary" id="in" placeholder="CompanyName">
+                            </div>
+                        </div>
+
+                        <div class="form-group text-right">
+                            <button class="btn btn-outline-primary">Save</button>
+                        </div>
+                    </form>
+               </div>
+            </div>
         </div>
-        <!-- ============================== -->
-    
-
-<!-- -------------------- -->
+    </div>
+</div>
+    <!-- -------------------- -->
 {% endblock body %}

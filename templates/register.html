@@ -5,14 +5,14 @@
     <div class="row">
         <div class="col-md-6 offset-md-3"><h3>Login</h3>
             <hr>
-            <form method = 'post'>
+            <form method='post'>
                 {% csrf_token %}
                 <!--Cross site Request Forgery(Man in the middle atack'lardan korunmak için)-->
-                {{form|crispy}} <!--formun görünmesi için özel bir kod-->
+                {{ form|crispy }} <!--formun görünmesi için özel bir kod-->
                 <br>
                 <button type='submit' class='btn btn-danger'>Register</button>
             </form>
         </div>
     </div>
-    
+
 {% endblock body %}
