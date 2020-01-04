@@ -12,13 +12,7 @@
                 {% if user.articles|length > 0 %}
                     <div class="col-lg-4 col-sm-6 col-xs-12">
                         <div id="card" class="card shadow">
-                        {% if user.profile.image %}
-                            <img src="/media/{{user.profile.image}}" class="card-img-top card-img-author"
-                                 alt="{{ user.username }}"/>
-                        {% else %}
-                            <img src="https://uinames.com/api/photos/male/1.jpg" class="card-img-top card-img-author"
-                                 alt="{{ user.username }}"/>
-                        {% endif %}
+                            <img src="/media/{{user.profile.image}}" class="card-img-top card-img-author" alt="{{ user.username }}"/>
                             <div class="card-body p-4">
                                 <h3 class="card-title">{{ user.username }}</h3>
                                 <div class="d-flex justify-content-between align-items-baseline">

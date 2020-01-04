@@ -29,7 +29,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
-    image = models.ImageField(default='media/profile_pics/default.jpg', upload_to='profile_pics')    
+    image = models.ImageField(default='profile_pics/default.jpg', upload_to='profile_pics')    
     role = models.CharField(max_length=30,choices=ROLE_CHOICES, null=True, blank=True)
     location = models.CharField(max_length=30, blank=True)
     birthdate = models.DateField(null=True, blank=True)    
