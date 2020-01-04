@@ -82,7 +82,7 @@ def loginUser(request):
             return render(request, 'loginuser.html', context)
                 # giriş başarısız, tekrar login sayfasına döndürdü
      
-        messages.success(request, username.capitalize()+'  ,login successful')
+        messages.success(request, username.capitalize()+', login successful')
             # if bloğuna girmedi yani giriş başarılı
 
         login(request, user)

@@ -14,15 +14,7 @@
 <body>
 {% include "includes/navbar.html" %}
 <main id="main" class="py-4">
-    {% if messages %}
-        {% for message in messages %}
-            {% if message.tags == "info" %}
-                <div class="alert alert-danger">{{ message }}</div>
-            {% else %}
-                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-            {% endif %}
-        {% endfor %}
-    {% endif %}
+    {% include "includes/message.html" %}
     {% block body %}
     {% endblock body %}
 </main>
@@ -33,7 +25,7 @@
 <script src="https://unpkg.com/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
-
+    
     function likeOrDislikePost(event) {
         <!-- Sayfada idsi like olan buton icin click olayini dinleyen bir fonksiyon calistiriliyor. -->
         $(document).on('click', '#like', function (event) {
@@ -82,7 +74,21 @@
     }
 
     <!-- Html dosyasi hazir oldugunda likeOrDislikePost fonksiyonu aktif olacaktir -->
-    $(document).ready(likeOrDislikePost);
+    $(document).ready(function() {
+        likeOrDislikePost();
+
+        $('.close').click(function() {
+            $('.toast').remove();
+        });
+
+        $('.toast').on(function() {
+            setTimeout(function() {
+                console.log("GEEEEE!")
+                $('.toast').remove()
+            }, 500)
+        })
+    });
+
 </script>
 </body>
 </html>

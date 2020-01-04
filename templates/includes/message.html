@@ -1,13 +1,26 @@
-<div class="container">
-    {% if messages %}
-        {% for message in messages %}
-            {% if message.tags == 'info' %}
-                <div class='alert alert-danger'>{{ message }}</div>
-                <!--Eğer mesaj info tag ile gelirse dangerı kullan-->
-            {% else %}
-                <div class='alert alert-{{ message.tags }}'>{{ message }}</div>
-                <!--Diğer durumda successı kullan-->
-            {% endif %}
-        {% endfor %}
-    {% endif %}
-</div>
+{% if messages %}
+    {% for message in messages %}
+        <div aria-live="polite" style="position: fixed; right: 5px; top: 75px; min-width: 300px; min-height: 200px; z-index: 10000;">
+            <div class="toast" data-autohide="true" data-delay="500" aria-live="assertive" aria-atomic="true" role="alert" style="position: absolute; opacity: 1; top: 0; right: 0;">
+                
+                {% if message.tags == 'info' %}
+                    <div class='alert mb-0 alert-danger d-flex justify-between align-items-baseline'>
+                        <p>{{ message }}</p>
+                        <button type="button" class="ml-auto mb-1 close" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>    
+                    </div>
+                    <!--Eğer mesaj info tag ile gelirse dangerı kullan-->
+                {% else %}
+                    <div class='alert mb-0 alert-{{ message.tags }} d-flex justify-between align-items-baseline'>
+                        <p class="my-0">{{ message }}</p>
+                        <button type="button" class="ml-5 mb-1 close" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>  
+                    </div>
+                    <!--Diğer durumda successı kullan-->
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
