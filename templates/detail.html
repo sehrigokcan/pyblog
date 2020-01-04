@@ -28,6 +28,31 @@
                     <div class="mb-4" id="like-section"> {% include 'like_section.html' %}</div>
                 </div>
             </div>
+
+            <div class="card my-4">
+            <h5 class="card-header">Comments</h5>
+                <div class="card-body" >
+                    {% if comments %} 
+                    {% for comment in comments  %}
+                    <i class="fa fa-comment-o btn-outline-primary"></i>
+                    <h6> {{comment.comment_author}}  &nbsp;<sub>{{comment.comment_date|timesince}} published</sub> </h6>
+                      
+                    <h6><sub class="card-text align-right mx-2 ">{{comment.comment_content|safe}}</sub> </h6>     
+                    <hr class="bg-inverse">                       
+                            
+                      {% endfor %}
+                    {% else %}
+                    <div class="alert alert-primary">No Comment</div>
+                    {% endif %}
+                
+               </div>
+            </div>
+
+
+
+
+
+
             <!-- Single Comment -->
             <div class="card my-4">
                 <h5 class="card-header">Comment</h5>
@@ -35,11 +60,11 @@
                     <form method="post" action="{% url 'article:comment' article.id %}">
                         {% csrf_token %}
                         <div class="form-group">
-                            <input type="text" class="form-control" id="exampleFormControlInput1"
+                            <input name="comment_author" type="text" class="form-control" id="exampleFormControlInput1"
                                    placeholder="Write your name">
                         </div>
                         <div class="form-group">
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"
+                            <textarea class="form-control" name="comment_content" id="exampleFormControlTextarea1" rows="5"
                                       placeholder="You can leave your comment here"></textarea>
                         </div>
                         <button class="btn btn-primary" type="submit">Add</button>

@@ -1,18 +1,17 @@
 import random
-
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import Max
 from django.forms.models import model_to_dict
 from django.http import JsonResponse
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404,reverse
 from django.template.loader import render_to_string
 from friendship.models import Follow
 from user.models import Profile
 
 from .forms import ArticleForm
-from .models import Article
+from .models import Article,Comment
 
 
 @login_required(login_url="user:login")
@@ -110,6 +109,7 @@ def index(request):
     if articles:
         articles = random.choices(articles, k=6)
 
+    print(len(articles))
     context = {
         "articles": articles, 
         "most_liked_articles": most_liked_articles,
@@ -152,8 +152,13 @@ def addArticle(request):
 
 def detail(request, id):
     # article=Article.objects.filter(id=id).first() bunu alt satırla revize ettik
-    article = get_object_or_404(Article, id=id)
-    return render(request, 'detail.html', {"article": article})
+        #article=Article.objects.filter(id=id).first() bunu alt satırla revize ettik
+    article =get_object_or_404(Article,id=id)
+    # buradaki" comments.all() "  Model icindeki Comment()sinifi icerisindeki article de 
+    # tanimlamis oldugumuz "releated_name "dir
+    comments=article.comments.all()
+    context={"article":article,"comments":comments}
+    return render(request, 'detail.html',context)
 
 
 @login_required(login_url="user:login")
@@ -185,7 +190,17 @@ def deleteArticle(request, id):
 
 
 def addComment(request, id):
-    return redirect('article:detail', {"id": id})
+    article=get_object_or_404(Article,id=id)
+    print(article)
+    if request.method=="POST":
+        comment_author=request.POST.get("comment_author")
+        comment_content=request.POST.get("comment_content")
+        comment=Comment(comment_author=comment_author,comment_content=comment_content)
+        
+        comment.article=article #article den gelen Id bilgisi Comment()article ile esitleniyor
+        comment.save()
+    
+    return redirect(reverse("article:detail",kwargs={"id":id}))
 
 
 def reading(request, id):

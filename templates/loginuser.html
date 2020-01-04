@@ -11,6 +11,8 @@
                     {% csrf_token %}
                     <!--Cross site Request Forgery(Man in the middle atack'lardan korunmak için)-->
                     {{ form|crispy }} <!--formun görünmesi için özel bir kod-->
+                    <a href="{% url 'password_reset' %}">Forget Password?</a>
+                    <hr>
                     <br>
                     <button type='submit' class='btn btn-block btn-primary'>Login</button>
                 </form>

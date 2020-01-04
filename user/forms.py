@@ -45,24 +45,26 @@ class ProfileForm(forms.ModelForm):
 
 class RegisterForm(forms.Form):
     username = forms.CharField(max_length= 50, label ='User')
+    email = forms.EmailField(label='email')
     password = forms.CharField(max_length= 20, label = 'Password', widget= forms.PasswordInput)
     confirm = forms.CharField(max_length= 20, label = 'Password Confirmation', widget= forms.PasswordInput)
-
-    # password ile confirm eşleşip eşleimediğini kontrol etmek için djangonun önerdiği clean fonksiyonunu kullanacağız
-
+# password ile confirm eşleşip eşleimediğini kontrol etmek için djangonun önerdiği clean fonksiyonunu kullanacağız
+ 
     def clean(self):
         username = self.cleaned_data.get('username')
+        email = self.cleaned_data.get('email')
         password = self.cleaned_data.get('password')
         confirm = self.cleaned_data.get('confirm')
+
         if User.objects.filter(username=username).exists():
             print("username")
             raise forms.ValidationError(u'Username "%s" is already in use!' % username)
         if password and confirm and password != confirm:
-            raise forms.ValidationError('Password and confirm do not match')
-
+            raise forms.ValidationError('Password and confirm do not match!')
         values = {
-            'username': username,
-            'password': password
+            "username": username,
+            "password": password,
+            "email":email,
         }
         return values
 

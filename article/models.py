@@ -48,6 +48,8 @@ class Comment(models.Model):
 
     comment_content = models.CharField(max_length=200, verbose_name="comment")
 
+    comment_date=models.DateTimeField(auto_now_add=True, verbose_name='oluşturulma zamanı')
+
     # yorum yazılacak alan bilgileri
 
     def __str__(self):

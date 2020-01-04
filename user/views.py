@@ -41,9 +41,10 @@ def register(request):
         # bu method forms.py'deki clean fonksiyonunu çağırıyor. Eğer sorgulama doğru ise TRUE yanlış ise FALSE döndürüyor.
         username = form.cleaned_data.get('username')
         password = form.cleaned_data.get('password')
+        email = form.cleaned_data.get('email')
             # forms.py'den verileri alıyoruz
         
-        newUser = User(username = username)
+        newUser = User(username = username,email=email)
             # user modelden obje oluşturuyoruz.
         newUser.set_password(password)
             # passwordü şifreliyoruz
@@ -73,6 +74,7 @@ def loginUser(request):
     if form.is_valid():
         username = form.cleaned_data.get('username')
         password = form.cleaned_data.get('password')
+       
 
         user = authenticate(username = username , password = password)
             # bir değişkene atama yaptık ve bu veriler databasede kayıtlımı diye sorgulanıyor.
